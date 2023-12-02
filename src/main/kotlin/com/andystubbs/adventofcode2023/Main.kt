@@ -1,3 +1,5 @@
+package com.andystubbs.adventofcode2023
+
 fun main(args: Array<String>) {
     println("Hello World!")
 
