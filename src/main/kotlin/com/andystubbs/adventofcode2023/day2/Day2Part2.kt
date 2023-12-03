@@ -4,7 +4,7 @@ import com.andystubbs.adventofcode2023.util.readInput
 
 fun main(args: Array<String>) {
 
-    val input = readInput("/day2/part1/input.txt")
+    val input = readInput("/day2/input.txt")
 
     println(input.sumOf { it ->
         val minCount = HashMap<String, Int>()

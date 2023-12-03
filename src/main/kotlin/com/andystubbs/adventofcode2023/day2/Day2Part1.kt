@@ -8,7 +8,7 @@ class Day2Part1 {
 
 fun main(args: Array<String>) {
 
-    val input = readInput("/day2/part1/input.txt")
+    val input = readInput("/day2/input.txt")
     val totalCubes = mapOf("red" to 12, "green" to  13, "blue" to 14)
     val invalidGames = HashSet<Int>();
 
