@@ -2,10 +2,6 @@ package com.andystubbs.adventofcode2023.day2
 
 import com.andystubbs.adventofcode2023.util.readInput
 
-
-class Day2Part1 {
-}
-
 fun main(args: Array<String>) {
 
     val input = readInput("/day2/input.txt")
