@@ -9,18 +9,11 @@ fun main(args: Array<String>) {
     val input = readInput("/day3/input.txt")
 
     val grid = borderIt(input)
-    grid.forEach { println(it) }
 
     var row = 0
-    grid.forEach {
-        updateTouchedGears(it, row++, grid)
-    }
+    grid.forEach { updateTouchedGears(it, row++, grid) }
     println(touchedGears)
-    print(touchedGears.values.map {
-        if (it.size == 2) {
-             it.first() * it.last()
-        } else 0
-    }.sum())
+    print(touchedGears.values.sumOf { if (it.size == 2) it.first() * it.last() else 0 })
 
 }
 
