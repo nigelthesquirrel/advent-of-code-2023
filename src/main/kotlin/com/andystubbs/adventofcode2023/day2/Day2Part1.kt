@@ -9,9 +9,7 @@ class Day2Part1 {
 fun main(args: Array<String>) {
 
     val input = readInput("/day2/part1/input.txt")
-
     val totalCubes = mapOf("red" to 12, "green" to  13, "blue" to 14)
-
     val invalidGames = HashSet<Int>();
 
     input.forEach { it ->
@@ -24,14 +22,10 @@ fun main(args: Array<String>) {
             cubes.forEach {
                 val count = it.trimStart().split(" ").first().toInt()
                 val color = it.trimStart().split(" ").last()
-                maxCount[color] = Math.max((maxCount[color] ?: 0), count)
+                maxCount[color] = (maxCount[color] ?: 0).coerceAtLeast(count)
             }
         }
-        maxCount.entries.forEach() {
-            if (it.value > (totalCubes[it.key] ?: 0)) {
-               invalidGames.add(gameNumber)
-            }
-        }
+        maxCount.entries.forEach() { if (it.value > (totalCubes[it.key] ?: 0)) invalidGames.add(gameNumber) }
     }
 
     val validGames = HashSet<Int>()
