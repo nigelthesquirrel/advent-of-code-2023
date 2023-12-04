@@ -14,7 +14,6 @@ fun main(args: Array<String>) {
     grid.forEach { updateTouchedGears(it, row++, grid) }
     println(touchedGears)
     print(touchedGears.values.sumOf { if (it.size == 2) it.first() * it.last() else 0 })
-
 }
 
 fun updateTouchedGears(line: String, y: Int, grid: List<String>) {
@@ -30,7 +29,7 @@ fun updateTouchedGears(line: String, y: Int, grid: List<String>) {
         if(!line[x+1].isDigit() && currentNumber.isNotEmpty()) {
 
           currentNumberTouchedGears.forEach() {
-              touchedGears.getOrPut(it) { mutableListOf<Int>() }.add(currentNumber.toInt())
+              touchedGears.getOrPut(it) { mutableListOf() }.add(currentNumber.toInt())
           }
           currentNumber = ""
           currentNumberTouchedGears = mutableSetOf()
