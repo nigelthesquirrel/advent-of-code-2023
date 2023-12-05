@@ -6,7 +6,7 @@ fun main(args: Array<String>) {
 
     val input = readInputIncludeBlank("/day5/input.txt")
 
-    val seeds = input.first { it.startsWith("seeds:") }.split("seeds: ").last().split(" ").map { it.toLong()}
+    val seeds = input.first { it.startsWith("seeds:") }.split("seeds: ").last().split(" ").map { it.toLong() }
     val maps = input.filter { !it.startsWith("seeds:") }.drop(1).joinToString("!").split("!!")
 
     val mappettes = HashMap<String, Mappette>()
@@ -14,14 +14,14 @@ fun main(args: Array<String>) {
     maps.forEach() {
 
         val items = it.split("!")
-        val mapName = items.first().replace(" map:","")
+        val mapName = items.first().replace(" map:", "")
         val mappette = Mappette()
 
         val mappings = items.drop(1)
 
         mappings.forEach() {
             val values = it.split(" ").map { it.toLong() }
-            mappette.addRange( Mapping(values[0],values[1],values[2]))
+            mappette.addRange(Mapping(values[0], values[1], values[2]))
         }
 
         mappettes[mapName] = mappette
@@ -53,12 +53,12 @@ class Mappette() {
 
     fun map(value: Long): Long {
         mappings.forEach() {
-            if(value >= it.source && value <= (it.source + it.range-1)) return it.destination + (value - it.source)
+            if (value >= it.source && value <= (it.source + it.range - 1)) return it.destination + (value - it.source)
         }
         return value
     }
 
-    override fun toString():String {
+    override fun toString(): String {
         return mappings.toString()
     }
 }
