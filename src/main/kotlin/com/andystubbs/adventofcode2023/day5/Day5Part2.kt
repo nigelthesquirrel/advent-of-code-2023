@@ -7,18 +7,23 @@ fun main(args: Array<String>) {
     val input = readInputIncludeBlank("/day5/input.txt")
 
     val seeds = input.first { it.startsWith("seeds:") }.split("seeds: ").last().split(" ").map { it.toLong() }
-    val maps = input.filter { !it.startsWith("seeds:") }.drop(1).joinToString("!").split("!!")
+    val seedChunks = seeds.chunked(2)
+    val finalSeeds = mutableSetOf<LongRange>()
 
-    val mappettes = HashMap<String, Mappette>()
+    seedChunks.forEach() {
+        finalSeeds.add(LongRange(it.first(), it.first() + (it.last() - 1)))
+    }
+
+    val maps = input.filter { !it.startsWith("seeds:") }.drop(1).joinToString("!").split("!!")
     val mapNames = mutableListOf<String>()
+    val mappettes = HashMap<String, ReverseMappette>()
 
     maps.forEach() {
 
         val items = it.split("!")
         val mapName = items.first().replace(" map:", "")
         mapNames.add(mapName)
-        val mappette = Mappette()
-
+        val mappette = ReverseMappette()
         val mappings = items.drop(1)
 
         mappings.forEach() {
@@ -29,34 +34,28 @@ fun main(args: Array<String>) {
         mappettes[mapName] = mappette
     }
 
-    println(seeds.minOfOrNull {
+    mapNames.reverse()
 
-        var x:Long = it
-        mapNames.forEach() {
-            x = mappettes[it]!!.map(x)
-        }
-        x
-    })
-
-}
-
-class Mapping(val destination: Long, val source: Long, val range: Long) {
-    override fun toString():String {
-        return "source=$source -> destination=$destination range=$range"
+    for (i in 1 until Long.MAX_VALUE) {
+        var x:Long = i
+        mapNames.forEach() { x = mappettes[it]!!.reverseMap(x) }
+        finalSeeds.forEach() { if (it.contains(x)) { return println("Found it! $i") } }
     }
 }
 
-class Mappette() {
+class ReverseMappette() {
 
-    val mappings = mutableListOf<Mapping>()
+    private val mappings = mutableListOf<Mapping>()
 
     fun addRange(mapping: Mapping) {
         mappings.add(mapping)
     }
 
-    fun map(value: Long): Long {
+    fun reverseMap(value: Long): Long {
         mappings.forEach() {
-            if (value >= it.source && value <= (it.source + it.range - 1)) return it.destination + (value - it.source)
+            if (value >= it.destination && value <= (it.destination + it.range - 1)) {
+                return it.source + (value - it.destination)
+            }
         }
         return value
     }
