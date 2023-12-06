@@ -43,6 +43,7 @@ fun main(args: Array<String>) {
     }
 }
 
+//If this wasn't a toy I would refactor this into  simply a list of LongRange
 class ReverseMappette() {
 
     private val mappings = mutableListOf<Mapping>()
