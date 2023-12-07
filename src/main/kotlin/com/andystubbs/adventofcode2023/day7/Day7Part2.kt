@@ -50,20 +50,20 @@ fun getRanking2(hand: Pair<String, Long>):Int {
 
     val cluster = hand.first.toList().groupingBy { it }.eachCount().values.max()
 
-    if( cluster == 5) return 7
-    if( cluster == 4) return 6
+    if( cluster == 5) return 7  //5 of a kind
+    if( cluster == 4) return 6  //4 of a kind
 
-    if (
+    if ( //Full House
         hand.first.toList().groupingBy { it }.eachCount().values.contains(2) &&
         hand.first.toList().groupingBy { it }.eachCount().values.contains(3)
     ) return 5
 
-    if( cluster == 3) return 4
+    if( cluster == 3) return 4  //3 of a kind
     if( cluster == 1) return 1
 
     val numPairs = hand.first.toList().groupingBy { it }.eachCount().values.count { it == 2 }
-    if( numPairs == 2) return 3
-    if( numPairs == 1) return 2
+    if( numPairs == 2) return 3 // 2 Pair
+    if( numPairs == 1) return 2 // 1 Pair
     error("Something wrong!")
 }
 
